@@ -102,8 +102,7 @@ namespace CKM_DataLayer
             }
             catch (Exception ex)
             {
-                string msg = ex.Message;
-                return "false";
+                throw ex;
             }
         }
     }
