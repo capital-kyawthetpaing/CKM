@@ -14,7 +14,7 @@ namespace CKM_CommonFunction
         /// <param name="c">Type Char</param>
         /// <param name="AllowMinus">If price allow minus sign then true otherwise false</param>
         /// <returns></returns>
-        public bool IsPriceKey(char c,bool AllowMinus)
+        public bool IsPriceKey(char c, bool AllowMinus)
         {
             if (char.IsDigit(c) || (((c == (char)Keys.Back) || c == ',') || c == '.') || (c == '\u0016' || c == '\u0001' || c == '\u0003' || c == '\u0018') || (c == '-' && AllowMinus) || (c == (char)Keys.Enter))
             {
@@ -30,7 +30,7 @@ namespace CKM_CommonFunction
         /// <param name="c">Type Char</param>
         /// <param name="AllowMinus">If price allow minus sign then true otherwise false</param>
         /// <returns></returns>
-        public bool IsNumberKey(char c,bool AllowMinus)
+        public bool IsNumberKey(char c, bool AllowMinus)
         {
             if (char.IsDigit(c) || (((c == (char)Keys.Back)) || (c == '-' && AllowMinus)) || (c == '\u0016' || c == '\u0001' || c == '\u0003' || c == '\u0018') || (c == (char)Keys.Enter))
             {
@@ -56,7 +56,7 @@ namespace CKM_CommonFunction
             return false;
         }
 
-        public bool IsByteLengthOver(int maxlength,string text)
+        public bool IsByteLengthOver(int maxlength, string text)
         {
             int byteCount = Encoding.GetEncoding("Shift_JIS").GetByteCount(text);
             if (byteCount > maxlength)
@@ -108,6 +108,13 @@ namespace CKM_CommonFunction
                     if (((DataGridView)ctrl).DataSource is DataTable dtGrid)
                         dtGrid.Rows.Clear();
                 }
+            }
+        }
+        public void DisablePanel(Panel panel)
+        {
+            foreach (Control ctrl in panel.Controls)
+            {
+                ctrl.Enabled = false;
             }
         }
     }
