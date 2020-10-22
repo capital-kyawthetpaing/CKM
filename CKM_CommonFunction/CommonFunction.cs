@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -71,6 +72,43 @@ namespace CKM_CommonFunction
         public string DataTableToJSONWithJSONNet(DataTable table)
         {
             return JsonConvert.SerializeObject(table);
+        }
+
+        /// <summary>
+        /// Get All control 
+        /// </summary>
+        /// <param name="root"></param>
+        /// <returns></returns>
+        public IEnumerable<Control> GetAllControls(Control root)
+        {
+            foreach (Control control in root.Controls)
+            {
+                foreach (Control child in GetAllControls(control))
+                {
+                    yield return child;
+                }
+            }
+            yield return root;
+        }
+
+        //Clear All Control within param panel
+        public void Clear(Panel panel)
+        {
+            IEnumerable<Control> c = GetAllControls(panel);
+            foreach (Control ctrl in c)
+            {
+                if (ctrl is TextBox)
+                    ((TextBox)ctrl).Text = string.Empty;
+                if (ctrl is ComboBox)
+                    ((ComboBox)ctrl).SelectedValue = "-1";
+                if (ctrl is CheckBox)
+                    ((CheckBox)ctrl).Checked = false;
+                if (ctrl is DataGridView)
+                {
+                    if (((DataGridView)ctrl).DataSource is DataTable dtGrid)
+                        dtGrid.Rows.Clear();
+                }
+            }
         }
     }
 }
