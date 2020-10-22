@@ -117,5 +117,12 @@ namespace CKM_CommonFunction
                 ctrl.Enabled = false;
             }
         }
+        public void EnablePanel(Panel panel)
+        {
+            foreach (Control ctrl in panel.Controls)
+            {
+                ctrl.Enabled = false;
+            }
+        }
     }
 }
