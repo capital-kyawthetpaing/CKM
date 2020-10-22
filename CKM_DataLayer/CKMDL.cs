@@ -82,5 +82,26 @@ namespace CKM_DataLayer
                    ";Connection Timeout=" + TimeOut;
 
         }
+
+        public string InsertUpdateDeleteData(string sSQL,string conStr, params SqlParameter[] para)
+        {
+            try
+            {
+                var newCon = new SqlConnection(conStr);
+                SqlCommand cmd = new SqlCommand(sSQL, newCon)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd.Parameters.AddRange(para);
+                cmd.Connection.Open();
+                cmd.ExecuteNonQuery();
+                cmd.Connection.Close();
+                return "true";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
