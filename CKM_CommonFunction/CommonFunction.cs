@@ -114,14 +114,15 @@ namespace CKM_CommonFunction
         {
             foreach (Control ctrl in panel.Controls)
             {
-                ctrl.Enabled = false;
+                if(!(ctrl is Label))
+                    ctrl.Enabled = false;
             }
         }
         public void EnablePanel(Panel panel)
         {
             foreach (Control ctrl in panel.Controls)
             {
-                ctrl.Enabled = false;
+                ctrl.Enabled = true;
             }
         }
     }
