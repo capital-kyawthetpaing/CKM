@@ -15,8 +15,6 @@ namespace CKM_DataLayer
 
         public DataTable SelectDatatable(string StoreprocedureName, string ConnectionString, params SqlParameter[] para)
         {
-
-
             DataTable dt = new DataTable();
             var newCon = new SqlConnection(ConnectionString);
             using (var adapt = new SqlDataAdapter(StoreprocedureName, newCon))
