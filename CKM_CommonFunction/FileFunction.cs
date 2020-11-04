@@ -45,7 +45,7 @@ namespace CKM_CommonFunction
         /// <returns></returns>
         public string GetConnectionWithDefaultPath(string key)
         {
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "/DBConfig/DBConfig.ini";
+            string filePath = "C:/DBConfig/DBConfig.ini";
             Dictionary<string, string> dic = ReadConfig(filePath, "DataBase", key);
 
             return "Data Source=" + dic["DatabaseServer"] +

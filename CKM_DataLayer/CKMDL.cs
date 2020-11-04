@@ -37,7 +37,7 @@ namespace CKM_DataLayer
 
         public string SelectJson(string sSQL, string ConStr, params SqlParameter[] para)
         {
-            DataTable dt = new DataTable();
+            DataTable dt = new DataTable("data");
             var newCon = new SqlConnection(ConStr);
             using (var adapt = new SqlDataAdapter(sSQL, newCon))
             {
@@ -90,6 +90,8 @@ namespace CKM_DataLayer
             try
             {
                 var newCon = new SqlConnection(conStr);
+                if(para != null)
+                    para = ChangeToDBNull(para);
                 SqlCommand cmd = new SqlCommand(sSQL, newCon)
                 {
                     CommandType = CommandType.StoredProcedure
