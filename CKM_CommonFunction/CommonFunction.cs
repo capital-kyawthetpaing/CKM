@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -123,6 +125,121 @@ namespace CKM_CommonFunction
             foreach (Control ctrl in panel.Controls)
             {
                 ctrl.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Check Date
+        /// </summary>
+        public bool DateCheck(TextBox textBox)
+        {
+            if (!string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                if (IsInteger(textBox.Text.Replace("/", "").Replace("-", "")))
+                {
+                    string day = string.Empty, month = string.Empty, year = string.Empty;
+                    if (textBox.Text.Contains("/"))
+                    {
+                        string[] date = textBox.Text.Split('/');
+                        day = date[date.Length - 1].PadLeft(2, '0');
+                        month = date[date.Length - 2].PadLeft(2, '0');
+
+                        if (date.Length > 2)
+                            year = date[date.Length - 3];
+
+                        textBox.Text = year + month + day;//  this.Text.Replace("/", "");
+                    }
+                    else if (textBox.Text.Contains("-"))
+                    {
+                        string[] date = textBox.Text.Split('-');
+                        day = date[date.Length - 1].PadLeft(2, '0');
+                        month = date[date.Length - 2].PadLeft(2, '0');
+
+                        if (date.Length > 2)
+                            year = date[date.Length - 3];
+
+                        textBox.Text = year + month + day;//  this.Text.Replace("-", "");
+                    }
+
+                    string text = textBox.Text;
+                    text = text.PadLeft(8, '0');
+                    day = text.Substring(text.Length - 2);
+                    month = text.Substring(text.Length - 4).Substring(0, 2);
+                    year = Convert.ToInt32(text.Substring(0, text.Length - 4)).ToString();
+
+                    if (month == "00")
+                    {
+                        month = string.Empty;
+                    }
+                    if (year == "0")
+                    {
+                        year = string.Empty;
+                    }
+
+                    if (string.IsNullOrWhiteSpace(month))
+                        month = DateTime.Now.Month.ToString().PadLeft(2, '0');//if user doesn't input for month,set current month
+
+                    if (string.IsNullOrWhiteSpace(year))
+                    {
+                        year = DateTime.Now.Year.ToString();//if user doesn't input for year,set current year
+                    }
+                    else
+                    {
+                        if (year.Length == 1)
+                            year = "200" + year;
+                        else if (year.Length == 2)
+                            year = "20" + year;
+                    }
+
+                    //string strdate = year + "-" + month + "-" + day;  2019.6.11 chg
+                    string strdate = year + "/" + month + "/" + day;
+                    if (CheckDateValue(strdate))
+                    {
+                        textBox.Text = strdate;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// check date is correct
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool CheckDateValue(string value)
+        {
+            return DateTime.TryParseExact(value,
+                       "yyyy/MM/dd",
+                       System.Globalization.CultureInfo.InvariantCulture,
+                       DateTimeStyles.None,
+                       out DateTime d);
+        }
+
+        /// <summary>
+        /// Check Int value or not
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public bool IsInteger(string value)
+        {
+            value = value.Replace("-", "");
+            if (Int64.TryParse(value, out Int64 Num))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
