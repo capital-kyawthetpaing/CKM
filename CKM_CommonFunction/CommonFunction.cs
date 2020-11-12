@@ -11,6 +11,19 @@ namespace CKM_CommonFunction
     public class CommonFunction
     {
         /// <summary>
+        /// change datatable to xml format
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns>return xml format string</returns>
+        public String DataTableToXml(DataTable dt)
+        {
+            dt.TableName = "test";
+            System.IO.StringWriter writer = new System.IO.StringWriter();
+            dt.WriteXml(writer, XmlWriteMode.WriteSchema, false);
+            string result = writer.ToString();
+            return result;
+        }
+        /// <summary>
         /// Check UserInput Key is Valid for Price
         /// </summary>
         /// <param name="c">Type Char</param>
