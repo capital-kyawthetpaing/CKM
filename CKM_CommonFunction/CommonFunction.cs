@@ -132,6 +132,16 @@ namespace CKM_CommonFunction
                 if(!(ctrl is Label))
                     ctrl.Enabled = false;
             }
+
+            if(panel.Name.Equals("PanelTitle"))
+            {
+                Control controls = panel.Parent as Control;
+                if (controls.Controls.Find("cboMode", true).Length > 0)
+                {
+                    Control ctrl1 = controls.Controls.Find("cboMode", true)[0];
+                    ctrl1.Enabled = false;
+                }
+            }            
         }
         public void EnablePanel(Panel panel)
         {
@@ -139,6 +149,16 @@ namespace CKM_CommonFunction
             {
                 ctrl.Enabled = true;
             }
+
+            if(panel.Name.Equals("PanelTitle"))
+            {
+                Control controls = panel.Parent as Control;
+                if (controls.Controls.Find("cboMode", true).Length > 0)
+                {
+                    Control ctrl1 = controls.Controls.Find("cboMode", true)[0];
+                    ctrl1.Enabled = true;
+                }
+            }           
         }
 
         /// <summary>
