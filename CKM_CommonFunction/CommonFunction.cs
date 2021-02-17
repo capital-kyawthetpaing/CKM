@@ -155,10 +155,11 @@ namespace CKM_CommonFunction
                 if (ctrl is DataGridView)
                 {
                     DataGridView dgv = ctrl as DataGridView;
+                    dgv.ReadOnly = false;
                     foreach (DataGridViewColumn col in dgv.Columns)
                     {
-                        if (col.DefaultCellStyle.BackColor != Color.FromArgb(217, 217, 217))
-                            col.ReadOnly = false;
+                        if (col.DefaultCellStyle.BackColor == Color.FromArgb(217, 217, 217))
+                            col.ReadOnly = true;
                     }
                 }
                 else
