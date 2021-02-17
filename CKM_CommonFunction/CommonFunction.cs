@@ -151,7 +151,12 @@ namespace CKM_CommonFunction
         {
             foreach (Control ctrl in panel.Controls)
             {
-                ctrl.Enabled = true;
+                if (ctrl is DataGridView)
+                {
+                    ((DataGridView)ctrl).ReadOnly = true;
+                }
+                else
+                    ctrl.Enabled = true;
             }
 
             if(panel.Name.Equals("PanelTitle"))
