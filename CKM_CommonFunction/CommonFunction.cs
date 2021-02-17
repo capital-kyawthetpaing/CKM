@@ -153,7 +153,7 @@ namespace CKM_CommonFunction
             {
                 if (ctrl is DataGridView)
                 {
-                    ((DataGridView)ctrl).ReadOnly = true;
+                    ((DataGridView)ctrl).ReadOnly = false;
                 }
                 else
                     ctrl.Enabled = true;
