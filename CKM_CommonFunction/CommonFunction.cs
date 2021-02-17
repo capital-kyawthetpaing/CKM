@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
@@ -150,10 +151,15 @@ namespace CKM_CommonFunction
         public void EnablePanel(Panel panel)
         {
             foreach (Control ctrl in panel.Controls)
-            {
+            {               
                 if (ctrl is DataGridView)
                 {
-                    ((DataGridView)ctrl).ReadOnly = false;
+                    DataGridView dgv = ctrl as DataGridView;
+                    foreach (DataGridViewColumn col in dgv.Columns)
+                    {
+                        if (col.DefaultCellStyle.BackColor != Color.FromArgb(217, 217, 217))
+                            col.ReadOnly = false;
+                    }
                 }
                 else
                     ctrl.Enabled = true;
